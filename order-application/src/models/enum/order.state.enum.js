@@ -1,7 +1,8 @@
 const orderState = ({
     CREATED : 'created',
     CANCELED: 'canceled',
-    CONFIRMED: 'confirmed'
+    CONFIRMED: 'confirmed',
+    DELIVERED: 'delivered'
   });
 
 module.exports = Object.freeze(orderState);

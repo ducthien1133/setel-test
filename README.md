@@ -7,17 +7,20 @@ Order and Payment application Api built by Node.js (express) and MongoDB.
 **File Structure :**
 ```
 .
-|___config
-|  |__config.json
-|___app
-|  |__controller
-|  |  |_____controller.js
-|  |__models
-|  |  |___model.js
-|  |__routes
-|  |  |___routes.js
-|___server.js
-|___package.json
+├───order-application
+│   ├───app
+│   │   ├───controllers
+│   │   ├───models
+│   │   │   └───enum
+│   │   └───routes
+│   └───config
+└───payment-application
+    ├───app
+    │   ├───controllers
+    │   ├───models
+    │   │   └───enum
+    │   └───routes
+    └───config
 ```
 **Files intro :**
 * config.json : store all your config information.

@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'mongodb://localhost:27017/order-database'
+    url: 'mongodb://setel-test:Aa123456789@ds131676.mlab.com:31676/order-database'
 }

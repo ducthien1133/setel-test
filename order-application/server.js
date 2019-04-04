@@ -1,22 +1,17 @@
+const schedule = require('node-schedule');
 const express = require('express');
 const bodyParser = require('body-parser');
+const orders = require('./src/controllers/order.controller');
 
-// create express app
 const app = express();
-
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-// Configuring the database
 const dbConfig = require('./config/config.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-// Connecting to the database
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true
 }).then(() => {
@@ -26,15 +21,15 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-// define a simple route
 app.get('/', (req, res) => {
     res.json({"message": "Welcome to Order application."});
 });
 
-// Require Orders routes
-require('./app/routes/order.routes.js')(app);
+require('./src/routes/order.routes.js')(app);
 
-// listen for requests
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
+    var j = schedule.scheduleJob('0-59/30 * * * * *', function(){
+        orders.autoUpdate();
+      });
 });

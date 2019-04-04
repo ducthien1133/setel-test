@@ -85,3 +85,22 @@ exports.update = (req, res) => {
         });
     });
 };
+
+exports.autoUpdate = (req, res) => {
+    order.find()
+    .then(orders => {
+        var confirmedOrders = orders.filter(x => x.state == orderStatus.CONFIRMED);
+        if(confirmedOrders != []) {
+            confirmedOrders.forEach( item => {
+                order.findByIdAndUpdate({_id: item.id},{ 'state': orderStatus.DELIVERED }, {useFindAndModify: false},function (err, order) {
+                    if (err)
+                      res.send(err);
+                  });
+            });
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving Orders."
+        });
+    });
+};
