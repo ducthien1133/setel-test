@@ -1,7 +1,8 @@
-'use strict';
 const order = require('../models/order.model');
 const orderStatus = require('../models/enum/order.state.enum');
 const paymentAction = require('../models/enum/payment.action.enum');
+const axios = require('axios');
+
 
 exports.create = (req, res) => {
     if(!req.body.name) {
@@ -15,9 +16,33 @@ exports.create = (req, res) => {
         state: orderStatus.CREATED,
         amount: req.body.amount
     });
+    
     newOrder.save()
     .then(data => {
         res.send(data);
+        var config = {
+            headers: { 'Content-Type': 'application/json' }
+          };
+
+        axios.post('http://localhost:4000/payments', {
+            orderId: data._id,
+            amount : data.amount
+        },config)
+        .then(function (response) {
+                axios.put('http://localhost:3000/orders/' + response.data.orderId , {
+                    orderId: response.data.orderId,
+                    paymentAction : response.data.paymentAction
+                },config)
+                .then(function (response) {
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Order."
