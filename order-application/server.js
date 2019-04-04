@@ -29,7 +29,7 @@ require('./src/routes/order.routes.js')(app);
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
-    var j = schedule.scheduleJob('0-59/30 * * * * *', function(){
+    var j = schedule.scheduleJob('0-59/60 * * * * *', function(){
         orders.autoUpdate();
       });
 });

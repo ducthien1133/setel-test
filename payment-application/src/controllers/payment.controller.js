@@ -7,8 +7,10 @@ exports.create = (req, res) => {
             message: "Payment order can not be empty"
         });
     }
+
+    var radomNumber = Math.floor(Math.random() * (2) ) + 1;
     return res.status(200).send({
         orderId: req.body.orderId,
-        paymentAction:  req.body.amount >= 50 ? paymentAction.DECLINED : paymentAction.CONFIRMED
+        paymentAction: radomNumber == 1 ? paymentAction.DECLINED : paymentAction.CONFIRMED
     });
 };
