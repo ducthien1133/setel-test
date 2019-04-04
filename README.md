@@ -43,6 +43,7 @@ In this case I set default listen port to 3000.
 
 **Here are URL endpoint :**
 * **POST** ```http://localhost:3000/orders```  -> to create new order
+
           ex json requets:   {
                             "name": "order2",
                             "des": "500 iphone 6",
@@ -55,6 +56,7 @@ In this case I set default listen port to 3000.
 * **GET** ```http://localhost:3000/orders/:orderId```  -> get current <:id> order
 
 * **PUT** ```http://localhost:3000/orders/:orderId```  -> update current <:id> order.
+
          ex json requets:   {
                                 "orderId": "5ca4e44ad28a8a22bc949bba",
                                 "paymentAction": "confirmed"
